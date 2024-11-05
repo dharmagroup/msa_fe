@@ -1,0 +1,11 @@
+.w-custom{
+    width: calc(100% - 5rem)
+}
+
+.h-custom{
+    height: calc(100vh - 20vh);
+}
+
+.max-h{
+    max-height: calc(100vh - 38.5vh);
+}

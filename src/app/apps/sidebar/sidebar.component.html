@@ -1,0 +1,184 @@
+<!-- Sidebar -->
+<div class="w-20 purple-bg text-white flex flex-col items-center h-screen">
+  <!-- Title -->
+  <div class="mt-4 mb-6 text-center">
+    <h1 class="text-xs text-white font-semibold">
+      <img src="assets/msa2.svg" class="w-10" alt="">
+    </h1>
+  </div>
+
+  <!-- Sidebar Buttons -->
+  <div class="flex flex-col items-center gap-3 mt-8 flex-1">
+    <ng-container *ngFor="let module of modules">
+      <div class="relative group w-full">
+        <button [ngClass]="{'active' : isActive(module.url)}"  (click)="addNewTab(module.module_name, module.url, module.have_children)"
+          class="w-full text-xl py-2 px-3 purple-hover flex flex-col items-center rectangle">
+          <div class="flex items-center justify-between">
+            <span>
+              <i [class]="module.icon"></i>
+              <div class="mt-1 text-xs">{{ module.module_name }}</div>
+            </span>
+          </div>
+        </button>
+
+        <!-- Dropdown untuk anak -->
+        <div *ngIf="module.children.length"
+          class="fixed  top-0 hidden group-hover:block bg-white text-black  pt-5 z-10 min-w-[25rem] h-screen overflow-auto border-r"
+          style="z-index:1000 !important;margin-top:0rem;height:100vh;margin-left:5.0rem">
+          <div class="py-2 px-4">
+            <h1 class="text-xl">{{module.module_name}}</h1>
+          </div>
+          <ng-container *ngFor="let child of module.children">
+            <div class="parent">
+              <button 
+                (click)="addNewTab(child.module_name, child.url, child.have_children)"
+                class="w-full text-sm py-2 px-4 hover:bg-gray-100 flex flex-col items-start">
+                <div class="flex items-center justify-between w-full">
+                  <div class="flex items-center">
+                    <i [class]="child.icon" class="text-sm"></i>
+                    <div class="ml-2 mt-1 text-sm">{{ child.module_name }}</div>
+                  </div>
+                  <span *ngIf="child.children.length" class="ml-auto">
+                    <i class="bi bi-caret-down text-sm"></i>
+                  </span>
+                </div>
+              </button>
+              <div *ngIf="child.children.length" class="pl-10 w-full child">
+                <ng-container *ngFor="let grandchild of child.children">
+                  <div class="flex items-center relative">
+                    <div class="timeline-line"></div> <!-- Garis Timeline -->
+                    <div class="circle"></div> <!-- Garis Timeline -->
+                    <div class="parent">
+                      <button 
+                        (click)="addNewTab(grandchild.module_name, grandchild.url, grandchild.have_children)"
+                        class="w-full text-xs py-1 px-1 flex flex-col hover:bg-gray-100 items-start rectangle">
+                        <div class="flex items-center justify-between w-full" style="padding-right:1.3rem">
+                          <div class="flex items-center">
+                            <i [class]="grandchild.icon" class="text-sm"></i>
+                            <div class="ml-2 mt-1 text-sm">{{ grandchild.module_name }}</div>
+                          </div>
+                          <span *ngIf="grandchild.children.length" class="ml-auto">
+                            <i class="bi bi-caret-down text-sm"></i>
+                          </span>
+                        </div>
+                      </button>
+                      <div *ngIf="grandchild.children.length" class="pl-10 w-full child">
+                        <ng-container *ngFor="let grandchild2 of grandchild.children">
+                          <div class="flex items-center relative">
+                            <div class="timeline-line"></div> <!-- Garis Timeline -->
+                            <div class="circle"></div> <!-- Garis Timeline -->
+                            <div class="parent">
+                              <button 
+                                (click)="addNewTab(grandchild2.module_name, grandchild2.url,grandchild2.have_children)"
+                                class="w-full text-xs py-1 px-1 flex flex-col hover:bg-gray-100 items-start rectangle">
+                                <div class="flex items-center justify-between w-full" style="padding-right:1.3rem">
+                                  <div class="flex items-center py-1">
+                                    <i [class]="grandchild2.icon" class="text-xs"></i>
+                                    <div class="ml-2 text-xs">{{ grandchild2.module_name }}</div>
+                                  </div>
+                                  <span *ngIf="grandchild2.children.length" class="ml-auto">
+                                    <i class="bi bi-caret-down text-sm"></i>
+                                  </span>
+                                </div>
+                              </button>
+                              <div *ngIf="grandchild2.children.length" class="pl-10 w-full child">
+                                <ng-container *ngFor="let grandchild3 of grandchild2.children">
+                                  <div class="flex items-center relative">
+                                    <div class="timeline-line"></div> <!-- Garis Timeline -->
+                                    <div class="circle"></div> <!-- Garis Timeline -->
+                                    <div class="parent">
+                                      <button 
+                                        (click)="addNewTab(grandchild3.module_name, grandchild3.url,grandchild3.have_children)"
+                                        class="w-full text-xs py-1 px-1 flex flex-col hover:bg-gray-100 items-start rectangle">
+                                        <div class="flex items-center justify-between w-full"
+                                          style="padding-right:1.3rem">
+                                          <div class="flex items-center py-1">
+                                            <i [class]="grandchild3.icon" class="text-xs"></i>
+                                            <div class="ml-2 text-xs">{{ grandchild3.module_name }}</div>
+                                          </div>
+                                          <span *ngIf="grandchild3.children.length" class="ml-auto">
+                                            <i class="bi bi-caret-down text-sm"></i>
+                                          </span>
+                                        </div>
+                                      </button>
+                                      <div *ngIf="grandchild3.children.length" class="pl-10 w-full child">
+                                        <ng-container *ngFor="let grandchild4 of grandchild3.children">
+                                          <div class="flex items-center relative">
+                                            <div class="timeline-line"></div> <!-- Garis Timeline -->
+                                            <div class="circle"></div> <!-- Garis Timeline -->
+                                            <div class="parent">
+                                              <button 
+                                                (click)="addNewTab(grandchild4.module_name, grandchild4.url, grandchild4.have_children)"
+                                                class="w-full text-xs py-1 px-1 flex flex-col hover:bg-gray-100 items-start rectangle">
+                                                <div class="flex items-center justify-between w-full"
+                                                  style="padding-right:1.3rem">
+                                                  <div class="flex items-center py-1">
+                                                    <i [class]="grandchild4.icon" class="text-xs"></i>
+                                                    <div class="ml-2 text-xs">{{ grandchild4.module_name }}</div>
+                                                  </div>
+                                                  <span *ngIf="grandchild4.children.length" class="ml-auto">
+                                                    <i class="bi bi-caret-down text-sm"></i>
+                                                  </span>
+                                                </div>
+                                              </button>
+                                              <div *ngIf="grandchild4.children.length" class="pl-10 w-full child">
+                                                <ng-container *ngFor="let grandchild5 of grandchild4.children">
+                                                  <div class="flex items-center relative">
+                                                    <div class="timeline-line"></div> <!-- Garis Timeline -->
+                                                    <div class="circle"></div> <!-- Garis Timeline -->
+                                                    <div class="parent">
+                                                      <button 
+                                                        (click)="addNewTab(grandchild5.module_name, grandchild5.url, grandchild5.have_children)"
+                                                        class="w-full text-xs py-1 px-1 flex flex-col hover:bg-gray-100 items-start rectangle">
+                                                        <div class="flex items-center justify-between w-full"
+                                                          style="padding-right:1.3rem">
+                                                          <div class="flex items-center py-1">
+                                                            <i [class]="grandchild5.icon" class="text-xs"></i>
+                                                            <div class="ml-2 text-xs">{{ grandchild5.module_name }}
+                                                            </div>
+                                                          </div>
+                                                          <span *ngIf="grandchild5.children.length" class="ml-auto">
+                                                            <i class="bi bi-caret-down text-sm"></i>
+                                                          </span>
+                                                        </div>
+                                                      </button>
+                                                    </div>
+                                                  </div>
+                                                </ng-container>
+                                              </div>
+
+
+
+
+                                            </div>
+                                          </div>
+                                        </ng-container>
+                                      </div>
+                                    </div>
+                                  </div>
+                                </ng-container>
+                              </div>
+                            </div>
+                          </div>
+                        </ng-container>
+                      </div>
+                    </div>
+                  </div>
+                </ng-container>
+              </div>
+            </div>
+          </ng-container>
+
+        </div>
+      </div>
+    </ng-container>
+  </div>
+
+  <!-- Logout Button -->
+  <div class="mt-auto mb-4 w-full">
+    <button class="w-full text-xl py-2 px-3 purple-hover flex flex-col items-center rectangle" (click)="api.logout()">
+      <i class="bi bi-box-arrow-right"></i>
+      <div class="mt-1 text-xs">Keluar</div>
+    </button>
+  </div>
+</div>

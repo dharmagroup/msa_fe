@@ -1,0 +1,137 @@
+<div class="px-4 py-1 z-1" style="max-width:100%">
+    <h2 class="text-md text-red-800 font-bold">Selamat Ulang Tahun <i class="bi bi-gift ml-3"></i></h2>
+    <div class="overflow-hidden py-3" style="max-width:72rem">
+        <div class="marquee">
+            <div class="flex space-x-2">
+                <!-- Kartu 1 -->
+                <div class="bg-white rounded-lg shadow-md px-2 py-1 flex items-center min-w-[250px]"
+                     *ngFor="let item of birthday">
+                    <div class="w-12 h-12 bg-gray-200 rounded-full overflow-hidden">
+                        <img src="data:image/jpg;base64,{{item.photo}}" class="w-full h-full object-cover">
+                    </div>
+                    <div class="ml-4 text-xs">
+                        <h2 class="text-md font-semibold">{{item.fullname}}</h2>
+                        <p class="text-gray-600">{{item.divisi}}</p>
+                        <p class="text-gray-600">{{item.company_name}}</p>
+                    </div>
+                </div>
+            </div>
+            <div class="flex space-x-2">
+                <!-- Kartu 1 (Duplikat untuk efek looping) -->
+                <div class="bg-white rounded-lg shadow-md px-2 py-1 flex items-center min-w-[250px]"
+                     *ngFor="let item of birthday">
+                    <div class="w-12 h-12 bg-gray-200 rounded-full overflow-hidden">
+                        <img src="data:image/jpg;base64,{{item.photo}}" alt="Foto Karyawan" class="w-full h-full object-cover">
+                    </div>
+                    <div class="ml-4 text-xs">
+                        <h2 class="text-md font-semibold">{{item.fullname}}</h2>
+                        <p class="text-gray-600">{{item.divisi}}</p>
+                        <p class="text-gray-600">{{item.company_name}}</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="w-full text-xl p-2 rounded border bg-gray-100 text-dark mb-4 font-semibold text-center">
+        Dasbor Kehadiran
+    </div>
+   
+    <div class="grid grid-cols-1 md:grid-cols-5 gap-4 text-xs mt-2">
+        <div class="mb-1">
+            <h2 class="text-md font-semibold mb-2">Perusahaan</h2>
+            <div class="flex items-center rounded">
+                <select class="block w-full px-2 py-1 bg-white">
+                    <option value="">Pilih Perusahaan</option>
+                    <option value="company1">Perusahaan 1</option>
+                    <option value="company2">Perusahaan 2</option>
+                </select>
+            </div>
+        </div>
+        <!-- Kolom 1: Filter Rentang Tanggal -->
+        <div class="mb-1">
+            <h2 class="text-md font-semibold mb-2">Tanggal</h2>
+            <div class="flex items-center rounded">
+                <input (change)="chosenDate($event)" [singleDatePicker]="true"
+                    class="px-2 py-1 text-sm text-gray-700 rounded-l focus:outline-none" type="text" matInput
+                    ngxDaterangepickerMd [locale]="{applyLabel: 'ok', format: 'DD-MM-YYYY'}" startKey="start"
+                    endKey="end" [(ngModel)]="selected" name="daterange" />
+            </div>
+        </div>
+        <div class="mb-1 ml-3">
+            <h2 class="text-md font-semibold mb-2">Shift</h2>
+            <div class="flex flex-row space-x-1">
+                <button class="px-3 py-1 border rounded bg-white">Pagi</button>
+                <button class="px-3 py-1 border rounded bg-white">Sore</button>
+                <button class="px-3 py-1 border rounded bg-white">Malam</button>
+            </div>
+
+        </div>
+
+        <div class="mb-1">
+            <h2 class="text-md font-semibold mb-2">Divisi</h2>
+            <div class="flex items-center rounded">
+                <select class="block w-full px-2 py-1 bg-white">
+                    <option value="">Pilih Divisi</option>
+                    <option value="divisi1">Divisi 1</option>
+                    <option value="divisi2">Divisi 2</option>
+                </select>
+            </div>
+        </div>
+
+        <div class="mb-1">
+            <h2 class="text-md font-semibold mb-2">Departemen</h2>
+            <div class="flex items-center rounded">
+                <select class="block w-full px-2 py-1 bg-white">
+                    <option value="">Pilih Departemen</option>
+                    <option value="departemen1">Departemen 1</option>
+                    <option value="departemen2">Departemen 2</option>
+                </select>
+            </div>
+        </div>
+
+    </div>
+
+    <div class="w-full p-2 rounded border bg-white mb-2 font-semibold text-center">
+        Total Karyawan: 450
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-4 gap-1">
+        <!-- Kolom 1: Grafik Pie -->
+        <div class="w-full border bg-white">
+
+            <highcharts-chart [Highcharts]="Highcharts" [options]="pieChartPresent"
+                style="width: 100%; height: 400px; display: block;">
+            </highcharts-chart>
+        </div>
+
+        <!-- Kolom 2: Grafik Batang -->
+        <div class="w-full border bg-white">
+
+            <highcharts-chart [Highcharts]="Highcharts" [options]="barChartPresent"
+                style="width: 100%; height: 400px; display: block;">
+            </highcharts-chart>
+        </div>
+
+        <!-- Kolom 1: Grafik Pie -->
+        <div class="w-full border bg-white">
+
+            <highcharts-chart [Highcharts]="Highcharts" [options]="pieChartLate"
+                style="width: 100%; height: 400px; display: block;">
+            </highcharts-chart>
+        </div>
+
+        <!-- Kolom 2: Grafik Batang -->
+        <div class="w-full border bg-white">
+            <highcharts-chart [Highcharts]="Highcharts" [options]="barChartLate"
+                style="width: 100%; height: 400px; display: block;">
+            </highcharts-chart>
+            <div class="text-xs text-gray-500 grid grid-cols-3 gap-1 px-2">
+                <div>LT1: 1-10 m</div>
+                <div>LT2: 11-20 m</div>
+                <div>LT3: 21-30 m</div>
+                <div>LT4: 31-60 m</div>
+                <div>LT5: >60 m</div>
+              </div>
+        </div>
+    </div>
+</div>

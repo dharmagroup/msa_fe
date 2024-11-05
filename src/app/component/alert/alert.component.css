@@ -1,0 +1,18 @@
+/* styles.css atau alert.component.css */
+@keyframes slideDown {
+    from {
+      transform: translateY(-100%);
+      transform: translateX(-50%);
+      opacity: 0;
+    }
+    /* to {
+      transform: translateY(100%);
+      opacity: 1;
+    } */
+  }
+  
+  .alert-danger, .alert-warning, .alert-primary, .alert-success, .alert-info {
+    animation: slideDown 0.5s ease-out;
+    z-index:80 !important
+  }
+  

@@ -1,0 +1,112 @@
+<div class="h-custom bg-white">
+    <div class="px-3 py-2 bg-white flex items-center justify-between">
+        <div class="flex items-center">
+            <div class="flex items-center border border-gray-300 rounded">
+                <input (change)="chosenDate($event)"
+                    class="px-2 py-1 text-sm text-gray-700 rounded-l focus:outline-none" type="text" matInput
+                    ngxDaterangepickerMd [locale]="{applyLabel: 'ok', format: 'DD-MM-YYYY'}" startKey="start"
+                    endKey="end" [(ngModel)]="selected" name="daterange" />
+                <button class="bg-white border-gray-300 px-2 py-1 rounded-r flex items-center">
+                    <i class="fas fa-search text-gray-500"></i>
+                </button>
+            </div>
+            <button (click)="exportExcel()" class="py-[0.3rem] ml-2 px-2 inline-flex items-center gap-x-2 text-sm font-medium rounded-lg border border-transparent bg-blue-600 text-white hover:bg-blue-700 focus:outline-none focus:bg-blue-700 disabled:opacity-50 disabled:pointer-events-none"
+                [disabled]="loadBtn">
+                <i *ngIf="!loadBtn" class="bi bi-file-earmark-spreadsheet"></i>
+                <span *ngIf="!loadBtn">
+                    Export to Excel
+                </span>
+
+                <svg *ngIf="loadBtn" class="animate-spin -ml-1  h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg"
+                    fill="none" viewBox="0 0 24 24">
+                    <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4">
+                    </circle>
+                    <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 0 1 16 0h-2a6 6 0 1 0-12 0H4z">
+                    </path>
+                </svg> <span *ngIf="loadBtn">Exporting...</span>
+
+            </button>
+        </div>
+        <div>
+            <div class="flex items-center border border-gray-300 rounded">
+                <input (keypress)="search($event)" type="text" placeholder="Search..."
+                    class="px-2 py-1 w-full text-sm text-gray-700 rounded-l focus:outline-none" />
+                <button class="bg-white border-gray-300 px-2 py-1 rounded-r flex items-center">
+                    <i class="fas fa-search text-gray-500"></i>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <div class="relative overflow-y-auto max-h border-t"> <!-- Set a max height for scrolling -->
+        <table class="min-w-full divide-y divide-gray-200">
+            <thead class="bg-gray-50">
+                <tr>
+                    <th
+                        class="px-3 py-3 border-l border-r border-b text-left text-xs font-medium text-gray-500 uppercase tracking-wider sticky top-0 bg-gray-50">
+                        Problem Specific</th>
+                    <th
+                        class="px-3 py-3 border-l border-r border-b text-left text-xs font-medium text-gray-500 uppercase tracking-wider sticky top-0 bg-gray-50">
+                        Trouble Area</th>
+                    <th
+                        class="px-3 py-3 border-l border-r border-b text-left text-xs font-medium text-gray-500 uppercase tracking-wider sticky top-0 bg-gray-50">
+                        Line Area</th>
+                    <th
+                        class="px-3 py-3 border-l border-r border-b text-left text-xs font-medium text-gray-500 uppercase tracking-wider sticky top-0 bg-gray-50">
+                        Station</th>
+                    <th
+                        class="px-3 py-3 border-l border-r border-b text-left text-xs font-medium text-gray-500 uppercase tracking-wider sticky top-0 bg-gray-50">
+                        Start Repair</th>
+                    <th
+                        class="px-3 py-3 border-l border-r border-b text-left text-xs font-medium text-gray-500 uppercase tracking-wider sticky top-0 bg-gray-50">
+                        End Repair</th>
+                    <th
+                        class="px-3 py-3 border-l border-r border-b text-left text-xs font-medium text-gray-500 uppercase tracking-wider sticky top-0 bg-gray-50">
+                        Times Repair</th>
+                    <th
+                        class="px-3 py-3 border-l border-r border-b text-left text-xs font-medium text-gray-500 uppercase tracking-wider sticky top-0 bg-gray-50">
+                        Created At</th>
+                </tr>
+            </thead>
+            <tbody class="bg-white divide-y divide-gray-200">
+                <tr *ngFor="let issue of issues">
+                    <td class="px-3 py-2 border whitespace-nowrap text-xs text-gray-900">{{ issue.reason }}</td>
+                    <td class="px-3 py-2 border whitespace-nowrap text-xs text-gray-900">{{ issue.andon_name }}</td>
+                    <td class="px-3 py-2 border whitespace-nowrap text-xs text-gray-900">{{ issue.andon_line }}</td>
+                    <td class="px-3 py-2 border whitespace-nowrap text-xs text-gray-900">{{ issue.andon_station }}</td>
+                    <td class="px-3 py-2 border whitespace-nowrap text-xs text-gray-900">{{ issue.start | date:
+                        'dd-MM-yyyy HH:mm:ss' }}</td>
+                    <td class="px-3 py-2 border whitespace-nowrap text-xs text-gray-900">{{ issue.end | date:
+                        'dd-MM-yyyy HH:mm:ss' }}</td>
+                    <td class="px-3 py-2 border whitespace-nowrap text-xs text-gray-900">{{ timer(issue.start,
+                        issue.end) }}</td>
+                    <td class="px-3 py-2 border whitespace-nowrap text-xs text-gray-900">{{ issue.created_at | date:
+                        'dd-MM-yyyy HH:mm:ss' }}</td>
+                </tr>
+            </tbody>
+        </table>
+        <div *ngIf="load" class="absolute inset-0 flex items-center justify-center bg-white bg-opacity-75">
+            <div class="text-gray-700 text-lg font-semibold">Loading...</div>
+        </div>
+    </div>
+
+    <div class="absolute w-custom bottom-0 px-3 py-2 border-t bg-white flex items-center justify-between">
+        <div></div>
+        <div class="flex items-center text-right">
+            <span *ngIf="record">{{record.from ?? 0 }}-{{record.to ?? 0}} of {{ record.total }} record</span>
+            <div class="ml-3" *ngIf="record">
+                <button class="btn bg-white px-2 py-2" (click)="paginate(record.prev_page_url)"
+                    [disabled]="!record.prev_page_url"
+                    [ngClass]="{'border-none': !record.prev_page_url, 'border': record.prev_page_url}">
+                    <i class="bi bi-chevron-left"></i>
+                </button>
+                <button class="btn bg-white px-2 py-2" (click)="paginate(record.next_page_url)"
+                    [disabled]="!record.next_page_url"
+                    [ngClass]="{'border-none': !record.next_page_url, 'border': record.next_page_url}">
+                    <i class="bi bi-chevron-right"></i>
+                </button>
+            </div>
+
+        </div>
+    </div>
+</div>

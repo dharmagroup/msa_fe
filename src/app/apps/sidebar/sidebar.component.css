@@ -1,0 +1,46 @@
+.h-screen{
+    min-height:100%
+}
+
+.active{
+    color: #69fa84;
+
+}
+
+.timeline-line {
+    position: absolute;
+    left: -10px; /* Sesuaikan dengan jarak yang diinginkan */
+    top: 20%; /* Sesuaikan dengan posisi yang diinginkan */
+    width: 1px; /* Ketebalan garis */
+    height: 70%; /* Panjang garis sesuai dengan konten */
+    background-color: rgb(196, 193, 193); /* Warna garis */
+}
+
+.circle {
+    position: absolute;
+    left: -.78rem; /* Sesuaikan posisi titik bulat */
+    top: .82rem; /* Sesuaikan dengan posisi yang diinginkan */
+    width: .4rem; /* Diameter titik bulat */
+    height: .4rem; /* Diameter titik bulat */
+    background-color: rgb(204, 205, 205); /* Warna titik bulat */
+    border-radius: 50%; /* Membuat bentuk bulat */
+}
+
+  .group:hover .timeline-line {
+    display: block; /* Tampilkan saat mouse hover */
+  }
+
+.parent {
+    cursor: pointer;
+    width: 100%;
+}
+
+
+.parent:hover > .child {
+    display: block !important; /* Show child on hover */
+}
+
+.child {
+    display: none; /* Child initially hidden */
+}
+

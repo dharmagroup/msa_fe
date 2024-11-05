@@ -1,0 +1,274 @@
+<div class="flex">
+    <!-- Kolom Kiri -->
+    <div class="w-2/5 p-4">
+        <div class="flex justify-between">
+            <div class="text-lg font-semibold">Role Group</div>
+            <button (click)="open()" aria-expanded="false" aria-controls="hs-focus-management-modal" data-hs-overlay="#hs-focus-management-modal" class="text-[#635BFF] bg-gray-100 hover:bg-gray-200 rounded p-2 cursor-pointer ml-4">
+                <i class="fas fa-plus"></i> Add role group
+            </button>
+        </div>
+        <div class="flex items-center mt-4">
+            <div class="flex-grow">
+                <div *ngFor="let role of roles"
+                    class="flex justify-between items-center p-0 border-b cursor-pointer hover:bg-gray-200 transition-all duration-150"
+                    [ngClass]="{'bg-gray-200': this.roleActive === role.role_id}">
+
+                    <button (click)="deleteRole(role.role_id)" class="btn text-gray-500 hover:bg-gray-100 rounded-[0rem] hover:text-red-600 focus:outline-none"
+                        aria-label="Delete role">
+                        <i class="fas fa-trash"></i>
+                    </button>
+                    <div (click)="_get_modules_(role.role_id)" class="flex-grow py-1 flex justify-between items-center ml-3 mr-3">
+                        <span class="text-sm font-medium">{{ role.role_name }}</span>
+                        <i class="fas fa-angle-right text-gray-500"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- Kolom Kanan -->
+    <div class="w-3/5 p-4 border-l">
+        <div class="flex justify-between">
+            <div class="text-lg font-semibold">Module</div>
+            <button (click)="submit()"
+                class="text-[#635BFF] bg-gray-100 hover:bg-gray-200 rounded p-2 cursor-pointer ml-4">
+                <i class="fas fa-save"></i> Save
+            </button>
+        </div>
+        <div>
+            <!-- Tree Root -->
+            <div id="hs-tree-view-checkbox" *ngIf="module" role="tree" aria-orientation="vertical" data-hs-tree-view='{
+                    "controlBy": "checkbox",
+                    "autoSelectChildren": true
+                }'>
+
+                <!-- 1st Level Accordion Group -->
+                <div data-hs-nested-draggable="">
+                    <!-- 1st Level Accordion -->
+                    <div *ngFor="let m of module;let i=index"
+                        class="hs-accordion hs-dragged:bg-blue-100 hs-dragged:rounded nested-2-1" role="treeitem"
+                        aria-expanded="true" id="module-{{m.module_id}}" [attr.data-hs-tree-view-item]='{
+                            "value": m.module_id,
+                            "isDir": m.have_children,
+                            "isSelected": m.checked
+                            
+                        } | json'>
+                        <!-- 1st Level Accordion Heading -->
+                        <div
+                            class="hs-accordion-heading py-0.5 rounded-md flex items-center gap-x-0.5 w-full hs-tree-view-selected:bg-gray-100 dark:hs-tree-view-selected:bg-neutral-700">
+                            <button
+                                class="hs-accordion-toggle size-6 flex justify-center items-center hover:bg-gray-100 rounded-md focus:outline-none focus:bg-gray-100 disabled:opacity-50 disabled:pointer-events-none dark:hover:bg-neutral-700 dark:focus:bg-neutral-700"
+                                aria-expanded="true" [attr.aria-controls]="'hs-checkbox-tree-collapse-'+i">
+                                <svg class="size-4 text-gray-800 dark:text-neutral-200"
+                                    xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                                    fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"
+                                    stroke-linejoin="round">
+                                    <path d="M5 12h14"></path>
+                                    <path class="hs-accordion-active:hidden block" d="M12 5v14"></path>
+                                </svg>
+                            </button>
+                            <div
+                                class="grow hs-tree-view-selected:bg-gray-100 dark:hs-tree-view-selected:bg-neutral-700 px-1.5 rounded-md cursor-pointer">
+                                <span class="text-sm text-gray-800 dark:text-neutral-200">
+                                    <label class="flex">
+                                        <input type="checkbox" (change)="toggleCheckbox(m)"
+                                            class="shrink-0 mt-0.5 border-gray-200 rounded text-blue-600 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none dark:bg-neutral-800 dark:border-neutral-700 dark:checked:bg-blue-500 dark:checked:border-blue-500 dark:focus:ring-offset-gray-800"
+                                            [value]="m.module_id" [checked]="m.checked">
+                                        <span class="ms-3">{{m.module_name}}</span>
+                                    </label>
+                                </span>
+                            </div>
+                        </div>
+                        <!-- End 1st Level Accordion Heading -->
+
+                        <!-- 1st Level Collapse -->
+                        <div id="hs-checkbox-tree-collapse-{{i}}"
+                            class="hs-accordion-content hidden w-full overflow-hidden transition-[height] duration-300"
+                            role="group" [attr.aria-labelledby]="'module-'+m.module_id">
+                            <div class="ms-3 ps-3 relative before:absolute before:top-0 before:start-0 before:w-0.5 before:-ms-px before:h-full before:bg-gray-100 dark:before:bg-neutral-700"
+                                data-hs-nested-draggable="">
+                                <div *ngFor="let c of m.children;let a=index"
+                                    class="hs-accordion hs-dragged:bg-blue-100 hs-dragged:rounded nested-2-2"
+                                    role="treeitem" aria-expanded="true" id="module-{{c.module_id}}"
+                                    [attr.data-hs-tree-view-item]='{
+                                        "value": c.module_id,
+                                        "isDir": c.have_children,
+                                        "isSelected": c.checked
+                                    } | json'>
+                                    <!-- 2nd Level Accordion Heading -->
+                                    <div
+                                        class="hs-accordion-heading py-0.5 rounded-md flex items-center gap-x-0.5 w-full hs-tree-view-selected:bg-gray-100 dark:hs-tree-view-selected:bg-neutral-700">
+                                        <button
+                                            class="hs-accordion-toggle size-6 flex justify-center items-center hover:bg-gray-100 rounded-md focus:outline-none focus:bg-gray-100 disabled:opacity-50 disabled:pointer-events-none dark:hover:bg-neutral-700 dark:focus:bg-neutral-700"
+                                            aria-expanded="true"
+                                            [attr.aria-controls]="'hs-checkbox-tree-sub-collapse-'+a">
+                                            <svg class="size-4 text-gray-800 dark:text-neutral-200"
+                                                xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                                                viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"
+                                                stroke-linecap="round" stroke-linejoin="round">
+                                                <path d="M5 12h14"></path>
+                                                <path class="hs-accordion-active:hidden block" d="M12 5v14"></path>
+                                            </svg>
+                                        </button>
+
+                                        <div
+                                            class="grow hs-tree-view-selected:bg-gray-100 dark:hs-tree-view-selected:bg-neutral-700 px-1.5 rounded-md cursor-pointer">
+                                            <span class="text-sm text-gray-800 dark:text-neutral-200">
+                                                <label class="flex">
+                                                    <input type="checkbox" (change)="toggleCheckbox(c)"
+                                                        class="shrink-0 mt-0.5 border-gray-200 rounded text-blue-600 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none dark:bg-neutral-800 dark:border-neutral-700 dark:checked:bg-blue-500 dark:checked:border-blue-500 dark:focus:ring-offset-gray-800"
+                                                        [value]="c.module_id" [checked]="c.checked">
+                                                    <span class="ms-3">{{c.module_name}}</span>
+                                                </label>
+                                            </span>
+                                        </div>
+                                    </div>
+                                    <!-- End 2nd Level Accordion Heading -->
+
+                                    <!-- 2nd Level Collapse -->
+                                    <div id="hs-checkbox-tree-sub-collapse-{{a}}"
+                                        class="hs-accordion-content hidden w-full overflow-hidden transition-[height] duration-300"
+                                        role="group" [attr.aria-labelledby]="'module-'+c.module_id">
+                                        <div class="ms-3 ps-3 relative before:absolute before:top-0 before:start-0 before:w-0.5 before:-ms-px before:h-full before:bg-gray-100 dark:before:bg-neutral-700"
+                                            data-hs-nested-draggable="">
+                                            <div *ngFor="let g of c.children;let b=index"
+                                                class="hs-accordion hs-dragged:bg-blue-100 hs-dragged:rounded nested-2-3"
+                                                role="treeitem" aria-expanded="true" id="module-{{g.module_id}}"
+                                                [attr.data-hs-tree-view-item]='{
+                                                    "value": g.module_id,
+                                                    "isDir": g.have_children,
+                                                    "isSelected": g.checked
+
+                                                } | json'>
+                                                <!-- 3rd Level Accordion Heading -->
+                                                <div
+                                                    class="hs-accordion-heading py-0.5 rounded-md flex items-center gap-x-0.5 w-full hs-tree-view-selected:bg-gray-100 dark:hs-tree-view-selected:bg-neutral-700">
+                                                    <button
+                                                        class="hs-accordion-toggle size-6 flex justify-center items-center hover:bg-gray-100 rounded-md focus:outline-none focus:bg-gray-100 disabled:opacity-50 disabled:pointer-events-none dark:hover:bg-neutral-700 dark:focus:bg-neutral-700"
+                                                        aria-expanded="true"
+                                                        [attr.aria-controls]="'hs-checkbox-tree-sub-level-two-collapse-'+b">
+                                                        <svg class="size-4 text-gray-800 dark:text-neutral-200"
+                                                            xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                                                            viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                                            stroke-width="1.5" stroke-linecap="round"
+                                                            stroke-linejoin="round">
+                                                            <path d="M5 12h14"></path>
+                                                            <path class="hs-accordion-active:hidden block" d="M12 5v14">
+                                                            </path>
+                                                        </svg>
+                                                    </button>
+
+                                                    <div
+                                                        class="grow hs-tree-view-selected:bg-gray-100 dark:hs-tree-view-selected:bg-neutral-700 px-1.5 rounded-md cursor-pointer">
+                                                        <span class="text-sm text-gray-800 dark:text-neutral-200">
+                                                            <label class="flex">
+                                                                <input type="checkbox" (change)="toggleCheckbox(g)"
+                                                                    class="shrink-0 mt-0.5 border-gray-200 rounded text-blue-600 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none dark:bg-neutral-800 dark:border-neutral-700 dark:checked:bg-blue-500 dark:checked:border-blue-500 dark:focus:ring-offset-gray-800"
+                                                                    [value]="g.module_id" [checked]="g.checked">
+                                                                <span class="ms-3">{{g.module_name}}</span>
+                                                            </label>
+                                                        </span>
+                                                    </div>
+                                                </div>
+                                                <!-- End 3rd Level Accordion Heading -->
+
+                                                <!-- 3rd Level Collapse -->
+                                                <div id="hs-checkbox-tree-sub-level-two-collapse-{{b}}"
+                                                    class="hs-accordion-content hidden w-full overflow-hidden transition-[height] duration-300"
+                                                    role="group" [attr.aria-labelledby]="'module-'+g.module_id">
+                                                    <div class="ms-3 ps-3 relative before:absolute before:top-0 before:start-0 before:w-0.5 before:-ms-px before:h-full before:bg-gray-100 dark:before:bg-neutral-700"
+                                                        data-hs-nested-draggable="">
+                                                        <!-- 3rd Level Item -->
+
+                                                        <div id="module-{{h.module_id}}"
+                                                            *ngFor="let h of g.children;let d=index"
+                                                            class="hs-tree-view-selected:bg-gray-100 dark:hs-tree-view-selected:bg-neutral-700 px-2 rounded-md cursor-pointer hs-dragged:bg-blue-100 hs-dragged:rounded nested-2-4"
+                                                            role="treeitem" [attr.data-hs-tree-view-item]='{
+                                                            "value": h.module_id,
+                                                            "isDir": h.have_children,
+                                                            "isSelected": h.checked
+
+                                                            } | json'>
+                                                            <div
+                                                                class="hs-accordion-heading py-0.5 rounded-md flex items-center gap-x-0.5 w-full hs-tree-view-selected:bg-gray-100 dark:hs-tree-view-selected:bg-neutral-700">
+                                                                <button
+                                                                    class="hs-accordion-toggle size-6 flex justify-center items-center hover:bg-gray-100 rounded-md focus:outline-none focus:bg-gray-100 disabled:opacity-50 disabled:pointer-events-none dark:hover:bg-neutral-700 dark:focus:bg-neutral-700"
+                                                                    aria-expanded="true"
+                                                                    [attr.aria-controls]="'hs-checkbox-tree-sub-level-two-collapse-'+d">
+                                                                    <svg class="size-4 text-gray-800 dark:text-neutral-200"
+                                                                        xmlns="http://www.w3.org/2000/svg" width="24"
+                                                                        height="24" viewBox="0 0 24 24" fill="none"
+                                                                        stroke="currentColor" stroke-width="1.5"
+                                                                        stroke-linecap="round" stroke-linejoin="round">
+                                                                        <path d="M5 12h14"></path>
+                                                                        <path class="hs-accordion-active:hidden block"
+                                                                            d="M12 5v14">
+                                                                        </path>
+                                                                    </svg>
+                                                                </button>
+                                                                <div
+                                                                    class="grow hs-tree-view-selected:bg-gray-100 dark:hs-tree-view-selected:bg-neutral-700 px-1.5 rounded-md cursor-pointer">
+                                                                    <span
+                                                                        class="text-sm text-gray-800 dark:text-neutral-200">
+                                                                        <label class="flex">
+                                                                            <input type="checkbox"
+                                                                                (change)="toggleCheckbox(h)"
+                                                                                class="shrink-0 mt-0.5 border-gray-200 rounded text-blue-600 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none dark:bg-neutral-800 dark:border-neutral-700 dark:checked:bg-blue-500 dark:checked:border-blue-500 dark:focus:ring-offset-gray-800"
+                                                                                [value]="h.module_id"
+                                                                                [checked]="h.checked">
+                                                                            <span class="ms-3">{{h.module_name}}</span>
+                                                                        </label>
+                                                                    </span>
+                                                                </div>
+                                                            </div>
+
+                                                        </div>
+                                                        <!-- End 3rd Level Item -->
+                                                    </div>
+                                                </div>
+                                                <!-- End 3rd Level Collapse -->
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!-- End 2nd Level Collapse -->
+                                </div>
+                            </div>
+                        </div>
+                        <!-- End 1st Level Collapse -->
+
+                    </div>
+                    <!-- End 1st Level Accordion -->
+                </div>
+                <!-- End 1st Level Accordion Group -->
+            </div>
+            <!-- End Tree Root -->
+        </div>
+    </div>
+</div>
+
+
+<!-- Modal Background -->
+<div *ngIf="isOpen" class="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 backdrop-blur-sm z-50">
+    <!-- Modal Content -->
+    <div class="bg-white rounded-lg shadow-lg w-full max-w-md p-6">
+      <div class="flex justify-between items-center">
+        <h3 class="text-lg font-bold">Add Role</h3>
+        <button (click)="close()" class="text-gray-500 hover:text-gray-700">
+          <svg class="w-6 h-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+          </svg>
+        </button>
+      </div>
+  
+      <div class="mt-4">
+        <label for="role" class="block text-sm font-medium text-gray-700">Role Name</label>
+        <input #text type="text" id="role" class="mt-1 block w-full p-2 border border-gray-300 rounded-md focus:ring focus:ring-blue-500" placeholder="" autofocus>
+      </div>
+  
+      <div class="mt-6 flex justify-end">
+        <button (click)="close()" class="mr-2 py-2 px-4 bg-gray-200 text-gray-700 rounded-md hover:bg-gray-300">Close</button>
+        <button (click)="addRole()" class="py-2 px-4 bg-blue-600 text-white rounded-md hover:bg-blue-700">Save</button>
+      </div>
+    </div>
+  </div>

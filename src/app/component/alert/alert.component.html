@@ -1,0 +1,74 @@
+<!-- Alert Danger -->
+<div *ngIf="alert && alert.type === 'danger'"
+  class="fixed top-0 left-1/2 transform -translate-x-1/2 w-90 p-4 mb-4 bg-white border-t-4 border-red-500 text-red-700 rounded-lg shadow-lg translate-y-full transition-transform duration-500 ease-out group alert-danger"
+  role="alert">
+  <div class="flex items-center gap-3">
+    <svg class="w-6 h-6 mr-3 flex-shrink-0 text-red-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"
+      xmlns="http://www.w3.org/2000/svg">
+      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+    </svg>
+    <div class="flex-1">
+      <span class="font-semibold">{{alert.title}}!</span> {{ alert.message }}
+    </div>
+    <button class="ml-4 h-10 w-10 text-3xl text-red-500 bg-red-100 rounded" (click)="closeAlert()">×</button>
+  </div>
+</div>
+
+<!-- Alert Warning -->
+<div *ngIf="alert && alert.type === 'warning'"
+  class="fixed top-0 left-1/2 transform -translate-x-1/2 w-90 p-4 mb-4 bg-white border-t-4 border-yellow-500 text-yellow-700 rounded-lg shadow-lg translate-y-full transition-transform duration-500 ease-out group alert-warning"
+  role="alert">
+  <div class="flex items-center gap-3">
+    <div>
+      <i class="bi bi-exclamation-octagon-fill text-3xl"></i>
+    </div>
+    <div class="flex-1">
+      <span class="font-semibold">{{alert.title}}!</span> {{ alert.message }}
+    </div>
+    <button class="ml-4 h-10 w-10 text-3xl text-yellow-500 bg-yellow-90 rounded" (click)="closeAlert()">×</button>
+  </div>
+</div>
+
+<!-- Alert Primary -->
+<div *ngIf="alert && alert.type === 'primary'"
+  class="fixed top-0 left-1/2 transform -translate-x-1/2 w-90 p-4 mb-4 bg-white border-t-4 border-[#635BFF] text-[#635BFF] rounded-lg shadow-lg translate-y-full transition-transform duration-500 ease-out group alert-primary"
+  role="alert">
+  <div class="flex items-center gap-3">
+
+    <div class="flex-1">
+      <span class="font-semibold">{{alert.title}}!</span> {{ alert.message }}
+    </div>
+    <button class="ml-4 h-10 w-10 text-3xl text-[#635BFF] bg-[#E8E8FF] rounded" (click)="closeAlert()">×</button>
+  </div>
+</div>
+
+<!-- Alert Success -->
+<div *ngIf="alert && alert.type === 'success'"
+  class="fixed top-0 left-1/2 transform -translate-x-1/2 w-90 p-4 mb-4 bg-white border-t-4 border-green-500 text-green-700 rounded-lg shadow-lg translate-y-full transition-transform duration-500 ease-out group alert-success"
+  role="alert">
+  <div class="flex items-center gap-3">
+    <div>
+      <i class="bi bi-check2-circle text-3xl"></i>
+    </div>
+    <div class="flex-1">
+      <span class="font-semibold">{{alert.title}}!</span> {{ alert.message }}
+    </div>
+    <button class="ml-4 h-10 w-10 text-3xl text-green-500 bg-green-100 rounded" (click)="closeAlert()">×</button>
+  </div>
+</div>
+
+<!-- Alert Info -->
+<div *ngIf="alert && alert.type === 'info'"
+  class="fixed top-0 left-1/2 transform -translate-x-1/2 w-90 p-4 mb-4 bg-white border-t-4 border-blue-500 text-blue-700 rounded-lg shadow-lg translate-y-full transition-transform duration-500 ease-out group alert-info"
+  role="alert">
+  <div class="flex items-center gap-3">
+    <div>
+      <i class="bi bi-info-circle text-3xl"></i>
+    </div>
+    <div class="flex-1">
+      <span class="font-semibold">{{alert.title}}!</span> {{ alert.message }}
+    </div>
+    <button class="ml-4 h-10 w-10 text-3xl text-blue-500 bg-blue-100 rounded" (click)="closeAlert()">×</button>
+  </div>
+</div>
+

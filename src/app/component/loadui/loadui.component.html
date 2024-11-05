@@ -1,0 +1,9 @@
+<div style="z-index:70 !important" class="fixed top-0 left-0 bottom-0 right-0 flex h-screen items-center justify-center bg-black bg-opacity-50" *ngIf="loadSubject && loadSubject.show">
+    <div class="w-full max-w-sm text-center bg-white rounded-lg p-5 shadow-lg">
+      <img src="assets/msa3.svg" alt="Loading..." class="w-24 h-24 mx-auto mb-5">
+      <div class="relative h-2 bg-gray-200 rounded mx-auto w-1/2">
+        <div class="absolute h-2 bg-custom rounded animate-loading"></div>
+      </div>
+      <p class="mt-2 text-lg">{{ loadSubject.message }}</p>
+    </div>
+  </div>

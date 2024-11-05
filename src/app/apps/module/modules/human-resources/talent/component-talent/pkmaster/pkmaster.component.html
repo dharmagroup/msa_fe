@@ -1,0 +1,151 @@
+<div class="container py-2 px-4">
+    <div class="flex justify-between mb-1">
+        <div class="flex items-center">
+            <h2 class="font-semibold">Penilaian Karya</h2>
+        </div>
+        <div class="flex items-center">
+            <input type="text" id="name-filter" class="border-b p-1 text-xs mr-2" placeholder="Search by name">
+            <label for="company-filter" class="mr-2 text-xs">Viewed By:</label>
+            <select id="company-filter" class="p-1 text-xs bg-white font-bold">
+                <option value="">All</option>
+                <option value="DPM">DPM</option>
+                <option value="DEM">DEM</option>
+                <option value="DPP">DPP</option>
+                <option value="DCI">DCI</option>
+                <option value="DKI">DKI</option>
+                <option value="DPA">DPA</option>
+                <option value="DPT">DPT</option>
+                <option value="SDI">SDI</option>
+                <option value="SOI">SOI</option>
+                <option value="DER">DER</option>
+            </select>
+            <select id="company-filter" class="p-1 text-xs bg-white font-bold ml-2">
+                <option value="Active">Active</option>
+                <option value="In Active">In Active</option>
+            </select>
+            <button class="ml-2 p-1 border mr-1 text-xs cursor-pointer hover:bg-gray-200" (click)="showModal=true">
+                <i class="bi bi-plus-circle"></i> Add
+            </button>
+            <button class="ml-2 p-1 border mr-1 text-xs cursor-pointer hover:bg-gray-200" (click)="showModal=true">
+                <i class="bi bi-upload"></i> Upload
+            </button>
+            <button class="ml-2 p-1 border mr-1 text-xs cursor-pointer hover:bg-gray-200">
+                <i class="bi bi-download"></i> Export
+            </button>
+            <button class="bg-white border text-xs px-2 py-1 hover:bg-gray-300">Prev</button>
+            <button class="bg-white border text-xs px-2 py-1 hover:bg-gray-300">Next</button>
+        </div>
+    </div>
+    <div class="overflow-y-auto" style="max-height: 65vh;">
+        <table class="min-w-full bg-white">
+            <thead class="bg-white text-gray-600 uppercase text-xs sticky top-0 z-10">
+                <tr>
+                    <th class="border-b border-gray-300 bg-gray-100 p-1 text-left w-2">
+                        <input type="checkbox" class="form-checkbox h-4 w-4">
+                    </th>
+                    <th class="border-b bg-gray-100 border-gray-300 p-1 text-left  w-[10%]">Status</th>
+                    <th class="border-b bg-gray-100 border-gray-300 p-1 text-left w-[10%]">Employee ID</th>
+                    <th class="border-b bg-gray-100 border-gray-300 p-1 text-left w-[20%]">Fullname</th>
+                    <th class="border-b bg-gray-100 border-gray-300 p-1 text-left w-4">Company</th>
+                    <th class="border-b bg-gray-100 border-gray-300 p-1 text-left w-12">PK H-2</th>
+                    <th class="border-b bg-gray-100 border-gray-300 p-1 text-left w-12">PK H-1</th>
+                    <th class="border-b bg-gray-100 border-gray-300 p-1 text-left"></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr class="hover:bg-gray-50 transition-colors duration-150">
+                    <td class="border-b border-gray-300 p-1 text-left">
+                        <input type="checkbox" class="form-checkbox h-4 w-4">
+                    </td>
+                    <td class="border-b border-gray-300 p-1 text-xs">
+                        <div class="flex gap-1 items-center">
+                            <label class="h-2 w-2 rounded-full active-bg"></label>
+                            <span class="active">Active</span>
+                        </div>
+                    </td>
+                    <td class="border-b border-gray-300 p-1 text-xs">001</td>
+                    <td class="border-b border-gray-300 p-1 text-xs">John Doe</td>
+                    <td class="border-b border-gray-300 p-1 text-xs">DPM</td>
+                    <td class="border-b border-gray-300 p-1 text-xs">BS</td>
+                    <td class="border-b border-gray-300 p-1 text-xs">BS</td>
+                    <td class="border-b border-gray-300 p-1 text-xs text-right relative">
+                        <button class="text-xs px-2 py-1 hover:bg-gray-100 rounded" (click)="toggleDropdown(0)">
+                            <i class="bi bi-three-dots-vertical"></i>
+                        </button>
+                        <div *ngIf="showDropdownIndex === 0"
+                            class="absolute right-0 mt-1 w-24 bg-white border border-gray-300 rounded shadow-lg z-20 text-left">
+                            <ul class="text-xs">
+                                <li><a href="#" class="block px-4 py-2 hover:bg-gray-100">Edit</a></li>
+                                <li><a href="#" class="block px-4 py-2 hover:bg-gray-100"
+                                        (click)="closeDropdown()">Delete</a></li>
+                            </ul>
+                        </div>
+                    </td>
+                </tr>
+                <tr class="hover:bg-gray-50 transition-colors duration-150">
+                    <td class="border-b border-gray-300 p-1 text-left">
+                        <input type="checkbox" class="form-checkbox h-4 w-4">
+                    </td>
+                    <td class="border-b border-gray-300 p-1 text-xs">
+                        <div class="flex gap-1 items-center">
+                            <label class="h-2 w-2 rounded-full active-bg"></label>
+                            <span class="active">Active</span>
+                        </div>
+                    </td>
+                    <td class="border-b border-gray-300 p-1 text-xs">002</td>
+                    <td class="border-b border-gray-300 p-1 text-xs">Jane Smith</td>
+                    <td class="border-b border-gray-300 p-1 text-xs">DEM</td>
+                    <td class="border-b border-gray-300 p-1 text-xs">BS</td>
+                    <td class="border-b border-gray-300 p-1 text-xs">BS</td>
+                    <td class="border-b border-gray-300 p-1 text-xs text-right relative">
+                        <button class="text-xs px-2 py-1 hover:bg-gray-100 rounded" (click)="toggleDropdown(1)">
+                            <i class="bi bi-three-dots-vertical"></i>
+                        </button>
+                        <div *ngIf="showDropdownIndex === 1"
+                            class="absolute right-0 mt-1 w-24 bg-white border border-gray-300 rounded shadow-lg z-20 text-left">
+                            <ul class="text-xs">
+                                <li><a href="#" class="block px-4 py-2 hover:bg-gray-100">Edit</a></li>
+                                <li><a href="#" class="block px-4 py-2 hover:bg-gray-100"
+                                        (click)="closeDropdown()">Delete</a></li>
+                            </ul>
+                        </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <div class="flex justify-between items-center mt-4">
+        <div class="text-xs ml-1">
+            <button class="px-2 py-1 bg-red-500 rounded text-white text-xs">
+                <i class="bi bi-trash"></i> Delete
+            </button>
+        </div>
+        <div class="text-xs">
+            <span>Showing 1 to 2 of 10 entries</span>
+        </div>
+    </div>
+</div>
+
+<!-- Modal -->
+<div id="uploadModal" class="fixed inset-0 flex items-center justify-center z-50" *ngIf="showModal">
+    <div class="bg-white rounded-lg shadow-lg w-11/12 max-w-md">
+        <div class="flex justify-between items-center border-b p-4">
+            <h2 class="font-semibold text-lg">Upload File</h2>
+            <button (click)="closeModal()" class="text-gray-500 hover:text-gray-700">
+                <i class="bi bi-x-circle"></i> <!-- Ganti dengan ikon yang sesuai -->
+            </button>
+        </div>
+        <div class="p-4">
+            <p class="text-sm mb-2">
+                Download a sample CSV template to see an example of the format required.
+            </p>
+            <dropzone [config]="config" class="h-48 border-dashed  border-gray-300 rounded-lg p-6 text-center"
+                [useDropzoneClass]="true" (error)="onUploadError($event)" (success)="onUploadSuccess($event)">
+                <!-- <i class="bi bi-upload text-3xl mb-2"></i> 
+            <p class="text-gray-500">Drop your files here or <a href="#" class="text-blue-500 underline">browse</a>
+            </p>
+            <p class="text-sm text-gray-400 mt-2">Supported formats: XLS</p> -->
+            </dropzone>
+        </div>
+    </div>
+</div>

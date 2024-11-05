@@ -1,0 +1,24 @@
+.custom-shadow {
+    box-shadow: 0 4px 15px rgba(255, 0, 0, 0.5); /* Ganti rgba sesuai kebutuhan */
+}
+
+@keyframes blink {
+    0% {
+        background-color: #eb0c0c;
+    }
+    50% {
+        background-color: #eb0c0c;
+    }
+    100% {
+        background-color: #eb0c0c;
+    }
+}
+
+.active {
+    color: white !important;
+    animation: blink 1s infinite;
+}
+
+.large{
+    width:50rem
+}

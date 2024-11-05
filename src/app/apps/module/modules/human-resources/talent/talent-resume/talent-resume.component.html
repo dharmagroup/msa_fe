@@ -1,0 +1,141 @@
+<div class="flex gap-1 bg-gray-100 text-xs p-2 rounded ml-2 mr-2">
+  <button class="border bg-white rounded text-black px-3 py-2 hover:bg-gray-500">DPM</button>
+  <button class="bg-gray-100 text-black px-3 py-2">DEM</button>
+  <button class="bg-gray-100 text-black px-3 py-2">DPP</button>
+  <button class="bg-gray-100 text-black px-3 py-2">DPA</button>
+  <button class="bg-gray-100 text-black px-3 py-2">DPT</button>
+  <button class="bg-gray-100 text-black px-3 py-2">DCI</button>
+  <button class="bg-gray-100 text-black px-3 py-2">SDI</button>
+  <button class="bg-gray-100 text-black px-3 py-2">DKI</button>
+  <button class="bg-gray-100 text-black px-3 py-2">SOI</button>
+  <button class="bg-gray-100 text-black px-3 py-2">ALL SUBCO</button>
+</div>
+<div class="p-2">
+  <table class="w-full">
+    <tbody>
+      <tr>
+        <td class=" w-[15%] align-top p-2">
+          <div class="w-full mb-2 bg-purple-500 text-white p-3 text-center rounded">
+            <div class="font-semibold">
+              Total Talent
+            </div>
+            <div class="font-bold text-5xl">
+              497
+            </div>
+          </div>
+          <div class="w-full ">
+            <input type="text" placeholder="Masukkan nama karyawan..."
+              class="w-full text-xs p-2 border border-gray-400 rounded focus:outline-none focus:border-blue-500 mb-1" />
+            <div class="p-2 border bg-white rounded overflow-y-auto" style="max-height:calc(100vh - 37vh)">
+              <ul class="text-xs text-left">
+                <li class="p-1 bg-white">John Doe</li>
+                <li class="p-1 bg-gray-100">Jane Smith</li>
+                <li class="p-1 bg-white">Michael Johnson</li>
+                <li class="p-1 bg-gray-100">Emily Davis</li>
+                <li class="p-1 bg-white">Sarah Brown</li>
+                <li class="p-1 bg-gray-100">David Wilson</li>
+                <li class="p-1 bg-white">Laura Garcia</li>
+                <li class="p-1 bg-gray-100">James Martinez</li>
+                <li class="p-1 bg-white">Linda Anderson</li>
+                <li class="p-1 bg-gray-100">Robert Thomas</li>
+                <li class="p-1 bg-white">Jessica Taylor</li>
+                <li class="p-1 bg-gray-100">William Moore</li>
+                <li class="p-1 bg-white">Patricia Jackson</li>
+                <li class="p-1 bg-gray-100">Daniel White</li>
+                <li class="p-1 bg-white">Nancy Harris</li>
+                <li class="p-1 bg-gray-100">Matthew Martin</li>
+                <li class="p-1 bg-white">Elizabeth Thompson</li>
+                <li class="p-1 bg-gray-100">Joseph Lee</li>
+                <li class="p-1 bg-white">Susan Walker</li>
+                <li class="p-1 bg-gray-100">Christopher Hall</li>
+              </ul>
+            </div>
+          </div>
+        </td>
+        <td class="w-full align-top text-center p-1">
+          <div class="grid grid-cols-4 gap-0">
+            <div class="bg-white">
+              <highcharts-chart [Highcharts]="Highcharts" [options]="genderComposition">
+              </highcharts-chart>
+            </div>
+            <div class="bg-white">
+              <highcharts-chart [Highcharts]="Highcharts" [options]="ageBandComposition">
+              </highcharts-chart>
+            </div>
+            <div class="bg-white">
+              <highcharts-chart [Highcharts]="Highcharts" [options]="LOSComposition">
+              </highcharts-chart>
+            </div>
+            <div class="bg-white">
+              <div class="bg-white">
+                <highcharts-chart [Highcharts]="Highcharts" [options]="HavMap">
+                </highcharts-chart>
+              </div>
+             
+            </div>
+          </div>
+          <div class="grid grid-cols-4 gap-0 mt-2">
+            <div class="bg-white">
+              <highcharts-chart [Highcharts]="Highcharts" [options]="currentGrade">
+              </highcharts-chart>
+            </div>
+            <div class="bg-white">
+              <highcharts-chart [Highcharts]="Highcharts" [options]="currentGradeProjection">
+              </highcharts-chart>
+            </div>
+            <div class="bg-white">
+              <highcharts-chart [Highcharts]="Highcharts" [options]="currentGradeLos">
+              </highcharts-chart>
+            </div>
+            <div class="bg-white">
+              <highcharts-chart [Highcharts]="Highcharts" [options]="gradePromotionDuration">
+              </highcharts-chart>
+            </div>
+            
+            <div class="bg-white">
+              <highcharts-chart [Highcharts]="Highcharts" [options]="gradePromotionExe">
+              </highcharts-chart>
+            </div>
+
+            <div class="bg-white">
+              <highcharts-chart [Highcharts]="Highcharts" [options]="PromotionLevelSpeed">
+              </highcharts-chart>             
+            </div>
+            <div class="bg-white">
+              <highcharts-chart [Highcharts]="Highcharts" [options]="existingPosition">
+              </highcharts-chart>
+            </div>
+            <div class="bg-white">
+              <highcharts-chart [Highcharts]="Highcharts" [options]="positionProjection">
+              </highcharts-chart>
+            </div>
+            <!-- <div class="bg-white">
+              <highcharts-chart [Highcharts]="Highcharts" [options]="SalaryIncrease">
+              </highcharts-chart>
+            </div> -->
+          
+          </div>
+          <div class="grid grid-cols-4 gap-0 mt-2">
+          
+          
+            <!-- <div class="bg-white">
+              <highcharts-chart [Highcharts]="Highcharts" [options]="positionProjectionJourney">
+              </highcharts-chart>
+            </div> -->
+          
+          </div>
+          
+          <div class="grid grid-cols-4 gap-1 mt-2">
+            <!-- <div class="bg-white">
+              <highcharts-chart [Highcharts]="Highcharts" [options]="gradeProjectionJourney">
+              </highcharts-chart>
+            </div> -->
+         
+         
+          </div>
+         
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>

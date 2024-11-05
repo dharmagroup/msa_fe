@@ -1,0 +1,14 @@
+/* styles.css */
+body {
+    font-family: 'Manrope', sans-serif;
+  }
+  
+  input:focus, button:focus {
+    outline: none;
+  }
+  
+  button:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+  }
+  

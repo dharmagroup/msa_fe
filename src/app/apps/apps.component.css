@@ -1,0 +1,21 @@
+
+.border-custom{
+    border-bottom: 1px solid #ddd;
+}
+
+.active{
+    background-color: #f7f7fbbf;
+    border-bottom:none !important;
+    border-top:1px solid #ddd;
+    border-right:1px solid #ddd;
+    border-left:1px solid #ddd;
+    z-index: 60;
+    color:#635BFF;
+}
+
+.tab:hover{
+    background-color: #f7f7fbd4;
+}
+
+/* styles.css atau file CSS global lainnya */
+/* styles.css atau file CSS global lainnya */

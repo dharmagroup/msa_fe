@@ -1,0 +1,18 @@
+<div class="px-1">
+    <table class="w-full">
+        <tbody>
+            <tr>
+                <td class="w-[15%] px-1 align-top">
+                    <div class="bg-white rounded h-content text-xs text-gray-700 p-2">
+                        <div class="px-2 w-full py-1 hover:bg-gray-100 cursor-pointer" *ngFor="let item of routes" (click)="navigate(item.path)" [ngClass]="{'bg-gray-200' : item.path == activeRoute.path}">
+                            <i class="{{item.icon}} me-2"></i> {{item.title}}
+                        </div>
+                    </div>
+                </td>
+                <td class="w-full bg-white align-top">
+                    <div [ngComponentOutlet]="activeRoute.component"></div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>

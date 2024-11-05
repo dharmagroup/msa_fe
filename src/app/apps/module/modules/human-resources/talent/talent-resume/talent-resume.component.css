@@ -1,0 +1,17 @@
+.scrollable-legend {
+    display: inline-block;
+    max-width: 80px; /* Set maximum width as needed */
+    white-space: nowrap; /* Prevent line breaks */
+    overflow: hidden; /* Hide overflow */
+    text-overflow: ellipsis; /* Show ellipsis for overflow */
+    vertical-align: middle; /* Align vertically if needed */
+}
+
+.highcharts-legend {
+    overflow-x: auto; /* Enable horizontal scroll */
+    white-space: nowrap; /* Prevent line breaks */
+    max-width: 100%; /* Adjust max-width as needed */
+}
+.highcharts-legend-item {
+    display: inline-block; /* Ensures items are horizontal */
+}

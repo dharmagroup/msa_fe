@@ -1,0 +1,108 @@
+<div class="text-center h-screen bg-white absolute top-0 bottom-0 left-0 right-0" style="z-index:80 !important"
+    *ngIf="data.length > 0">
+    <!-- <h1 class="p-3 font-semibold">Andon System</h1> -->
+    <table class="min-w-full h-screen bg-white border border-gray-200">
+        <tbody>
+            <tr class="bg-gray-100">
+                <td class="text-center border font-bold">
+                    <a href="javascript:void" class="text-red-600" (click)="toggleFullscreen()"><i
+                            class="bi bi-fullscreen font-bold"></i></a>
+                </td>
+                <td class="p-2 text-center border font-bold" colspan="10">LINE STOP MONITORING</td>
+                <td class="p-2 text-center border">
+                    <a href="javascript:void" class="text-red-600" (click)="back()">[CLOSE]</a>
+                </td>
+            </tr>
+            <tr>
+                <td class="p-1 text-center border bg-gray-500"></td>
+                <td class="p-2 text-center border font-semibold text-sm " *ngFor="let items of data[0].data">
+                    {{items.andon_line_name}}</td>
+                <td class="text-left border font-semibold text-sm w-[10rem] align-top" rowspan="5">
+                    <div class="text-md text-red-600 text-center">ISSUE:</div>
+                    <div class="overflow-hidden" >
+                        <div class="overflow-y-auto" style="height: calc(100vh - 10vh)">
+                            <div class="text-sm" *ngFor="let issue of issue" >
+                                <table class="min-w-full">
+                                    <tbody>
+                                        <tr>
+                                            <td class="px-2 py-1 border-b border-dashed border-gray-400">
+                                                <div class="text-xs text-gray-700">
+                                                    Area
+                                                </div>
+                                                <div class="text-xs font-semibold">
+                                                    {{issue.andon_name}}
+                                                </div>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td class="px-2 py-1 border-b border-dashed border-gray-400">
+                                                <div class="text-xs text-gray-700">
+                                                    Line
+                                                </div>
+                                                <div class="text-xs font-semibold">
+                                                    {{issue.andon_line}} ({{issue.andon_station}})
+                                                </div>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td class="px-2 py-1 border-b border-dashed border-gray-400">
+                                                <div class="text-xs text-gray-700">
+                                                    Created At
+                                                </div>
+                                                <div class="text-xs font-semibold">
+                                                    {{ issue.created_at | date: 'dd-MM-yyyy HH:mm:ss' }}
+                                                </div>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td class="px-2 py-1 border-b border-dashed border-gray-400">
+                                                <div class="text-xs text-gray-700">
+                                                    Repair Time
+                                                </div>
+                                                <div class="text-xs font-semibold" *ngIf="issue.start">
+                                                    <!-- {{ timer(issue.start,issue.end) }} -->
+                                                      {{issue.repairTime ?? '--:--:--'}}
+                                                </div>
+                                                <div class="text-xs font-semibold" *ngIf="!issue.start">
+                                                    --:--:--
+                                                </div>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td class="px-2 py-1 border-b border-dashed border-gray-400">
+                                                <div class="text-xs text-gray-700">
+                                                    Problem specifications
+                                                </div>
+                                                <div class="text-xs font-semibold">
+                                                    {{issue.reason}}
+                                                </div>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                                <div class="py-1 bg-gray-700"></div>
+                            </div>
+                        </div>
+                    </div>
+                </td>
+            </tr>
+            <tr *ngFor="let item of data">
+                <td class="p-1 text-center border font-semibold">{{ item.item }}</td>
+                <td class="p-1 text-center border" *ngFor="let items of item.data">
+                    <div [ngClass]="{'bg-red-200': items.status}"
+                        class="h-[5.5rem] w-[5.5rem] flex items-center justify-center mx-auto rounded-full shadow-lg">
+                        <button [ngClass]="{'active': items.status}"
+                            class="bg-red-200 text-white flex items-center justify-center mx-auto font-bold h-[5rem] w-[5rem] rounded-full shadow-lg focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-opacity-50">
+                            <i class="bi bi-power text-4xl" *ngIf="!items.start && !items.status"></i>
+                            <span *ngIf="items.start" >
+                                <!-- {{ timer(items.start,items.end) }} -->
+                                  {{items.repairTime}}
+                            </span>
+                            <span *ngIf="!items.start && items.status">----:----:----</span>
+                        </button>
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>

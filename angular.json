@@ -35,21 +35,28 @@
               "src/assets"
             ],
             "styles": [
+              "node_modules/bootstrap/dist/css/bootstrap.min.css",
+              "node_modules/bootstrap-icons/font/bootstrap-icons.css",
+              "node_modules/@fortawesome/fontawesome-free/css/all.min.css",
+              "node_modules/dropzone/dist/min/dropzone.min.css",
               "src/styles.css"
             ],
-            "scripts": []
+            "scripts": [
+              "node_modules/preline/dist/preline.js"
+            ]
           },
           "configurations": {
             "production": {
+              
               "budgets": [
                 {
                   "type": "initial",
-                  "maximumWarning": "500kb",
-                  "maximumError": "1mb"
+                  "maximumWarning": "2mb",
+                  "maximumError": "2mb"
                 },
                 {
                   "type": "anyComponentStyle",
-                  "maximumWarning": "2kb",
+                  "maximumWarning": "4kb",
                   "maximumError": "4kb"
                 }
               ],
@@ -101,5 +108,8 @@
         }
       }
     }
+  },
+  "cli": {
+    "analytics": "b4a932de-9425-4ad4-96cb-c6a948541db3"
   }
 }

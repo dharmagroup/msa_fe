@@ -1,0 +1,60 @@
+<div class="bg-white sticky top-0 z-50">
+  <div class="flex justify-between items-center px-4 py-2">
+    <div class="flex items-center space-x-4">
+      <button>
+        <i class="bi bi-text-left text-2xl text-gray-500"></i>
+      </button>
+      <div>
+        <span class="font-bold text-gray-700">
+          <div class="relative w-full max-w-md">
+            <input type="text" #textInput placeholder="Press [CTRL + /] for search..."
+              class="w-full text-xs py-2 pl-10 pr-4 border border-gray-300 rounded focus:border-teal-500 focus:ring-2 focus:ring-teal-500 transition duration-300 ease-in-out search-input" />
+            <span class="absolute inset-y-0 left-0 flex items-center pl-3">
+              <i class="bi bi-search text-gray-500"></i>
+            </span>
+          </div>
+        </span>
+      </div>
+    </div>
+    <div class="flex items-center space-x-4 ml-auto">
+      <button class="p-2 rounded-full" (click)="toggleFullscreen()">
+        <i class="bi bi-arrows-fullscreen text-gray-500"></i>
+      </button>
+      <!-- <button class="p-2 rounded-full">
+        <i class="bi bi-search text-gray-500"></i>
+      </button> -->
+      <div class="relative dropdown">
+        <button class="p-2 rounded-full" (click)="toggleDropdown('bells', $event)">
+          <i class="bi bi-bell text-gray-500"></i>
+          <div
+            class="absolute top-1 ml-2 p-0 w-2 h-2 flex items-center justify-center purple-bg text-white text-xs rounded-full">
+          </div>
+        </button>
+        <div class="dropdown-menu" *ngIf="dropdowns['bell']">
+          <a href="#">Profile</a>
+          <a href="#">Settings</a>
+          <a href="javascript:void(0)" (click)="api.logout()">Logout</a>
+        </div>
+      </div>
+      <div class="relative dropdown">
+        <button class="p-2 rounded flex items-center bg-gray-100" (click)="toggleDropdown('profile', $event)">
+          <img src="assets/user-1.jpg" class="w-6 h-6 object-cover rounded-full" alt="User Icon">
+          <span for="" class="ml-2 text-xs">{{user?.employee_name}}</span>
+        </button>
+        <!-- Dropdown Menu -->
+        <div class="dropdown-menu" *ngIf="dropdowns['profile']">
+          <div class="user-info flex items-center px-4 py-2 border-b mb-2">
+            <img src="assets/user-1.jpg" class="w-12 h-12 object-cover rounded-full mr-3" alt="User Icon">
+            <div>
+              <p class="text-gray-700 font-semibold">{{user?.employee_name}}</p>
+              <p class="text-gray-500 text-sm">{{user?.employee_number}} - {{user?.company_code}}</p>
+            </div>
+          </div>
+          <!-- <a href="#"><i class="bi bi-person text-gray-500"></i> Profile</a>
+          <a href="#"><i class="bi bi-gear text-gray-500"></i> Settings</a> -->
+          <a href="javascript:void(0)" (click)="api.logout()"><i class="bi bi-box-arrow-right text-gray-500"></i> Logout</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

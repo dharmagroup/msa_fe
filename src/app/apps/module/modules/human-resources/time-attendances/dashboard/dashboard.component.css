@@ -1,0 +1,24 @@
+.chart{
+    width: 10rem !important;
+    /* height: 10rem !important; */
+}
+
+.highcharts-title{
+    font-size:0.8em !important
+}
+
+highcharts-chart{
+    height:283px !important
+}
+
+@keyframes marquee {
+    0% { transform: translateX(100%); }
+    100% { transform: translateX(-100%); }
+}
+
+.marquee {
+    display: flex;
+    animation: marquee 25s linear infinite;
+
+
+}
