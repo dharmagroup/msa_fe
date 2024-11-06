@@ -31,11 +31,47 @@ export class DisplayComponent implements OnInit, OnDestroy {
     private location: Location,
     private loading: LoadingService,
     private cdr: ChangeDetectorRef
-  ) { }
+  ) {
+   
+   }
+
+  private timeSubscription: Subscription | undefined;
+   
+  currentTime : string = ''
+  updateTime(): void {
+    const now = new Date();
+
+    // Format waktu
+    const timeOptions: Intl.DateTimeFormatOptions = {
+      hour: '2-digit',
+      minute: '2-digit',
+      second: '2-digit',
+      hour12: false, // Format 24 jam
+      timeZone: 'Asia/Jakarta' // Zona waktu Indonesia Barat (WIB)
+    };
+
+    const timeFormatter = new Intl.DateTimeFormat('id-ID', timeOptions);
+    const time = timeFormatter.format(now).replaceAll('.', ':'); // Menggunakan separator ":"
+
+    // Format tanggal (dd/mm/yyyy)
+    const dateOptions: Intl.DateTimeFormatOptions = {
+      day: '2-digit',
+      month: '2-digit',
+      year: 'numeric'
+    };
+    
+    const dateFormatter = new Intl.DateTimeFormat('id-ID', dateOptions);
+    const date = dateFormatter.format(now); // Format tanggal sesuai 'dd/mm/yyyy'
+
+    // Gabungkan tanggal dan waktu
+    this.currentTime = `${date} ${time}`; // Misalnya: "06/11/2024 12:45:30"
+  }
 
   ngOnInit(): void {
     this._get_layout_();
-
+    this.timeSubscription = interval(1000).subscribe(() => {
+      this.updateTime();
+    });
     this.pusher.bind('andonvoice', this.handleAndonVoice.bind(this));
     this.pusher.bind('andonalarm', () => this._get_layout_without_loading());
     this.pusher.bind('andonstartrepair', () => {
@@ -55,6 +91,10 @@ export class DisplayComponent implements OnInit, OnDestroy {
     this.unsubscribe$.complete();
     if (this.timerId) {
       clearTimeout(this.timerId);
+    }
+
+    if (this.timeSubscription) {
+      this.timeSubscription.unsubscribe();
     }
  
     if (this.subscription) {
